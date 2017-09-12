@@ -1,0 +1,44 @@
+Käyttöliittymä kyselytiedot:
+
+Sukupuoli: Mies/Nainen
+Testiluokka: FT, 5min, 1min, 5sec
+Luokan teho:
+
+Käyttöliittymä nappulat:
+
+Calculate, Clear, Save, Trend
+
+Tulosten esitys:
+
+Näytetään (pylväsdiagrammi tai kynttilä):
+
+FT, 5min, 1min, 5sec Teho taulukosta
+Luokitus
+Luokkien ala- ja yläraja tehot
+
+Käyttöliittymä tulosten esitystapa:
+
+
+			   Good [50,200]
+			   120
+               |---------|			
+FTP:  ---------|  |      |------------------------------------------------
+               |---------| 
+
+               Good [50,200]
+               120
+               |---------|			
+5min: ---------|  |      |------------------------------------------------
+               |---------| 
+
+               Good [50,200]
+               120	        
+               |---------|			
+1min: ---------|  |      |------------------------------------------------
+               |---------| 
+
+               Good [50,200]
+               130
+               |---------|			
+5sec: ---------|  |      |------------------------------------------------
+               |---------| 
