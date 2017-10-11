@@ -83,12 +83,11 @@
 #ifndef CYCLINGPOWERPROFILERQUERY_H
 #define CYCLINGPOWERPROFILERQUERY_H
 
-using namespace std;
-
 #include <string>
 #include <utility>
 #include <vector>
 
+#include "Athlete.h"
 #include "CyclingPowerProfileChart.h"
 
 struct QueryRequest {

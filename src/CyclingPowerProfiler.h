@@ -25,10 +25,7 @@
 #ifndef CYCLINGPOWERPROFILER_H
 #define CYCLINGPOWERPROFILER_H
 
-#include "Athlete.h"
-#include "CyclingPowerProfileChart.h"
 #include "CyclingPowerProfilerQuery.h"
-#include "iProfiler.h"
 
 class CyclingPowerProfiler : public IProfiler {
  public:

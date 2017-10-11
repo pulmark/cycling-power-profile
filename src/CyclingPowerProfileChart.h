@@ -23,11 +23,12 @@
 #ifndef CYCLINGPOWERPROFILECHART_H
 #define CYCLINGPOWERPROFILECHART_H
 
-#include <vector>
 #include <utility>
+#include <vector>
+#include <array>
 
 // enumerations for different categories
-enum Category {
+enum class Category {
   kUntrained = 1,
   kFair,
   kModerate,
@@ -38,50 +39,37 @@ enum Category {
   kWorldClass
 };
 
-enum PowerType {
-    kUndefined = 0,
-    kFt,
-    k5Min,
-    k1Min,
-    k5Sec
-};
+enum class PowerType { kUndefined = 0, kFt, k5Min, k1Min, k5Sec };
 
-enum PowerUnit {
-    kWatt = 1,
-    kWattKg
-};
+enum class PowerUnit { kWatt = 1, kWattKg };
 
-enum EnergySystem {
-    kMlss = 1,
-    kMap,
-    kAnaerobic,
-    kNm
-};
+enum class EnergySystem { kMlss = 1, kMap, kAnaerobic, kNm };
 
+//////////////////////////////////////////////////////////////////////////////
 struct CyclingPowerProfileCategory {
+  CyclingPowerProfileCategory() : id(), low(), high() {}
+  CyclingPowerProfileCategory(Category c, double l, double h)
+      : id(c), low(l), high(h) {}
 
-    CyclingPowerProfileCategory() : id(), low(), high() {}
-    CyclingPowerProfileCategory(Category c, double l, double h)
-        : id(c), low(l), high(h) {}
-
-    Category id {};
-    double low = 0.0;   // lowest power(W/kg)
-    double high = 0.0;  // highest power(W/kg)
+  Category id{};
+  double low = 0.0;   // lowest power(W/kg)
+  double high = 0.0;  // highest power(W/kg)
 };
 
-struct CyclingPowerProfileChart
-{
+//////////////////////////////////////////////////////////////////////////////
+struct CyclingPowerProfileChart {
   PowerType type;
   std::string description;
 
   // power (watt/kg) categorirized as range (lower limit, upper limit)
-  std::array<CyclingPowerProfileCategory,8> categories;
+  std::array<CyclingPowerProfileCategory, 8> categories;
 };
 
-struct CyclingPowerProfile
-{
-    std::array<CyclingPowerProfileChart, 4> male;
-    std::array<CyclingPowerProfileChart, 4> female;
+//////////////////////////////////////////////////////////////////////////////
+struct CyclingPowerProfile {
+  std::array<CyclingPowerProfileChart, 4> male;
+  std::array<CyclingPowerProfileChart, 4> female;
 };
+
 
 #endif  // CYCLINGPOWERPROFILECHART_H

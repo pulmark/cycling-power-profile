@@ -23,7 +23,7 @@
 /* code */
 
 #include "CyclingPowerProfiler.h"
-#include "json.hpp"
+// #include "json.hpp"
 
 double watts_per_kg(double power, const Weight& weight) {
     return static_cast<double>(power / weight.kg());
@@ -34,7 +34,7 @@ const CyclingPowerProfileChart male_ftp =
 { PowerType::kFt,
   "Functional Threshold Power",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     1.86, 2.58),
       CyclingPowerProfileCategory(Category::kFair,          2.40, 3.11),
       CyclingPowerProfileCategory(Category::kModerate,      2.93, 3.64),
@@ -50,7 +50,7 @@ const CyclingPowerProfileChart male_map =
 { PowerType::k5Min,
   "Maximum Aerobic Power",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     2.33, 3.15),
       CyclingPowerProfileCategory(Category::kFair,          2.95, 3.77),
       CyclingPowerProfileCategory(Category::kModerate,      3.57, 4.39),
@@ -66,7 +66,7 @@ const CyclingPowerProfileChart male_ana =
 { PowerType::k1Min,
   "Anaerobic",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     5.64, 6.56),
       CyclingPowerProfileCategory(Category::kFair,          6.33, 7.25),
       CyclingPowerProfileCategory(Category::kModerate,      7.02, 7.94),
@@ -82,7 +82,7 @@ const CyclingPowerProfileChart male_nmu =
 { PowerType::k5Sec,
   "Neuro Muscular",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low    High
       CyclingPowerProfileCategory(Category::kUntrained,     10.17, 12.35),
       CyclingPowerProfileCategory(Category::kFair,          11.80, 13.98),
       CyclingPowerProfileCategory(Category::kModerate,      13.44, 15.61),
@@ -99,7 +99,7 @@ const CyclingPowerProfileChart female_ftp =
 { PowerType::kFt,
   "Functional Threshold Power",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     1.50, 2.16),
       CyclingPowerProfileCategory(Category::kFair,          1.99, 2.65),
       CyclingPowerProfileCategory(Category::kModerate,      2.49, 3.14),
@@ -115,7 +115,7 @@ const CyclingPowerProfileChart female_map =
 { PowerType::k5Min,
   "Maximum Aerobic Power",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     1.89, 2.63),
       CyclingPowerProfileCategory(Category::kFair,          2.45, 3.19),
       CyclingPowerProfileCategory(Category::kModerate,      3.00, 3.74),
@@ -131,7 +131,7 @@ const CyclingPowerProfileChart female_ana =
 { PowerType::k1Min,
   "Anaerobic",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     4.67, 5.39),
       CyclingPowerProfileCategory(Category::kFair,          5.21, 5.94),
       CyclingPowerProfileCategory(Category::kModerate,      5.76, 6.48),
@@ -147,7 +147,7 @@ const CyclingPowerProfileChart female_nmu =
 { PowerType::k5Sec,
   "Neuro Muscular",
   {
-      //                                Category                  Low   High
+      //                          Category                  Low   High
       CyclingPowerProfileCategory(Category::kUntrained,     8.43, 10.15),
       CyclingPowerProfileCategory(Category::kFair,          9.72, 11.45),
       CyclingPowerProfileCategory(Category::kModerate,      11.01, 12.74),
@@ -177,7 +177,7 @@ bool CyclingPowerProfiler::InitQuery(PowerType type,
     return true;
 }
 
-bool CyclingPowerProfiler::SaveQuery(ProfileFormat format) {
+bool CyclingPowerProfiler::SaveQuery(ProfileFormat /* format */) {
     return false;
 }
 
@@ -205,26 +205,27 @@ bool CyclingPowerProfiler::Run(const Athlete& athlete) {
     }
 
     // sanity check: at least one of power values must be set
-    if (lround(power_ftp) < 0 && lround(power_map) < 0 && lround(power_ana) < 0 && lround(power_nmu) < 0)
+    if (power_ftp < 0 && power_map < 0 && power_ana < 0 && power_nmu < 0)
         return false;
 
     // determine chart to be used for calculations
     std::vector<CyclingPowerProfileChart>& chart =
             (query_.request.gender == Gender::kFemale ? female_ : male_);
 
-    // indexes into chart table power values
-    int idx_ftp, idx_map, idx_ana, idx_nmu = -1;
 
     // calculate power profiles
     for (auto&& c : chart) {
+        // indexes into chart table power values
+        // int idx_ftp, idx_map, idx_ana, idx_nmu = -1;
+
         if (c.type == PowerType::kFt && power_ftp > 1)
-            idx_ftp = CalcPowerProfile(power_ftp, c, query_.response);
+            /* idx_ftp = */ CalcPowerProfile(power_ftp, c, query_.response);
         if (c.type == PowerType::k5Min && power_map > 1)
-            idx_map = CalcPowerProfile(power_map, c, query_.response);
+            /* idx_map = */ CalcPowerProfile(power_map, c, query_.response);
         if (c.type == PowerType::k1Min && power_ana > 1)
-            idx_ana = CalcPowerProfile(power_ana, c, query_.response);
+            /* idx_ana = */ CalcPowerProfile(power_ana, c, query_.response);
         if (c.type == PowerType::k5Sec && power_nmu > 1)
-            idx_nmu = CalcPowerProfile(power_nmu, c, query_.response);
+            /* idx_nmu = */ CalcPowerProfile(power_nmu, c, query_.response);
     }
 
     /*
@@ -305,15 +306,15 @@ bool CyclingPowerProfiler::Run(const Athlete& athlete) {
     return true;
 }
 
-int CyclingPowerProfiler::CalcPowerProfile(double power,
-                                           CyclingPowerProfileChart& chart,
-                                           QueryResponse& result) {
+int CyclingPowerProfiler::CalcPowerProfile(double /* power */,
+                                           CyclingPowerProfileChart& /* chart */,
+                                           QueryResponse& /* result */) {
     return -1;
 }
 
-int CyclingPowerProfiler::CalcPowerProfileGoal(long idx,
-                                               CyclingPowerProfileChart& chart,
-                                               QueryResponse& result) {
+int CyclingPowerProfiler::CalcPowerProfileGoal(long /* idx */,
+                                               CyclingPowerProfileChart& /* chart */,
+                                               QueryResponse& /* result */) {
     return -1;
 }
 
