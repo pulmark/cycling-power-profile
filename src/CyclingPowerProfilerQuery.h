@@ -41,6 +41,7 @@
         "power-type": "ft",
         "watts": 300,
         "class": "good",
+        "procents": 25,
         "range": [
           280,
           360
@@ -91,16 +92,17 @@ using namespace std;
 #include "CyclingPowerProfileChart.h"
 
 struct QueryRequest {
-  Athlete::Gender gender;
+  Gender gender;
   double weight;
-  CyclingPowerProfileChart::PowerUnit unit;
-  std::vector<std::pair<CyclingPowerProfileChart::PowerType, double> > power;
+  PowerUnit unit;
+  std::vector<std::pair<PowerType, double> > power;
 };
 
 struct QueryResponseItem {
-  CyclingPowerProfileChart::PowerType type;
+  PowerType type;
   int watts;
   std::string classification;
+  double procents;
   std::pair<double, double> class_range;
   bool is_goal;
 };

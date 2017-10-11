@@ -32,16 +32,25 @@
 
 class CyclingPowerProfiler : public IProfiler {
  public:
-  enum ProfileFormat { kJson = 1, kBson };
+  enum ProfileFormat { kInternal, kJson, kBson };
 
-  CyclingPowerProfiler() {}
+  explicit CyclingPowerProfiler() : male_{}, female_{}, query_{} {}
   ~CyclingPowerProfiler() {}
 
+  // profiler initialization
+  void Init();
+
+  // clears query
   void ResetQuery();
 
-  bool InitQuery(CyclingPowerProfileChart::PowerType type, int watts);
+  // initializes a new query
+  bool InitQuery(PowerType type, int watts);
 
-  bool Run(Athlete& athlete);
+  // saves last query (request & result)
+  bool SaveQuery(ProfileFormat format = kJson);
+
+  // does profiling for given athlete
+  bool Run(const Athlete& athlete);
 
  protected:
  private:
@@ -55,10 +64,7 @@ class CyclingPowerProfiler : public IProfiler {
   CyclingPowerProfilerQuery query_;
 
   // loads power profile charts
-  bool LoadPowerProfileChart(ProfileFormat format = kJson);
-
-  // saves power profiler query (request & result)
-  bool SavePowerProfilerQuery(ProfileFormat format = kJson);
+  bool LoadPowerProfileChart(ProfileFormat format = kInternal);
 
   int CalcPowerProfile(double power, CyclingPowerProfileChart& chart,
                        QueryResponse& result);

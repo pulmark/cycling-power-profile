@@ -24,7 +24,7 @@
 
 #include <QCoreApplication>
 
-#include "Athlete.h"
+// #include "Athlete.h"
 #include "CyclingPowerProfileChart.h"
 #include "CyclingPowerProfiler.h"
 #include "CyclingPowerProfilerQuery.h"
@@ -32,8 +32,32 @@
 
 #include "json.hpp"
 
+
 int main(int argc, char *argv[]) {
   QCoreApplication a(argc, argv);
+
+  // init athlete
+  Athlete me(Gender::kMale);
+  Weight w = 65.6_kg;
+  me.set_weight(w);
+
+  // init profiler
+  shared_ptr<CyclingPowerProfiler> profiler = std::make_shared<CyclingPowerProfiler>();
+  profiler->Init();
+
+  // build query
+  profiler->ResetQuery();
+  profiler->InitQuery(PowerType::kFt, 257.0);
+  profiler->InitQuery(PowerType::k5Min, 416.0);
+  profiler->InitQuery(PowerType::k1Min, 630.0);
+  profiler->InitQuery(PowerType::k5Sec, 870.0);
+
+  // run profiling on athlete 'me'
+  me.set_profiler(profiler);
+  me.DoProfiling();
+
+  // save query and its results
+  profiler->SaveQuery();
 
   return a.exec();
 }

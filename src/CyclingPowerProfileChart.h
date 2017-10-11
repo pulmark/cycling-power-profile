@@ -26,49 +26,62 @@
 #include <vector>
 #include <utility>
 
-struct CyclingPowerProfileChart {
-  enum PowerType { kUndefined = 0, kFt, k5Min, k1Min, k5Sec };
-  enum PowerUnit { kWatt = 1, kWattKg };
-  enum EnergySystem { kMlss = 1, kMap, kAnaerobic, kNm };
+// enumerations for different categories
+enum Category {
+  kUntrained = 1,
+  kFair,
+  kModerate,
+  kGood,
+  kVeryGood,
+  kExcellent,
+  kExceptional,
+  kWorldClass
+};
 
-  enum Class {
-    kUntrained = 1,
-    kFair,
-    kModerate,
-    kGood,
-    kVeryGood,
-    kExcellent,
-    kWorldClass
-  };
+enum PowerType {
+    kUndefined = 0,
+    kFt,
+    k5Min,
+    k1Min,
+    k5Sec
+};
 
+enum PowerUnit {
+    kWatt = 1,
+    kWattKg
+};
+
+enum EnergySystem {
+    kMlss = 1,
+    kMap,
+    kAnaerobic,
+    kNm
+};
+
+struct CyclingPowerProfileCategory {
+
+    CyclingPowerProfileCategory() : id(), low(), high() {}
+    CyclingPowerProfileCategory(Category c, double l, double h)
+        : id(c), low(l), high(h) {}
+
+    Category id {};
+    double low = 0.0;   // lowest power(W/kg)
+    double high = 0.0;  // highest power(W/kg)
+};
+
+struct CyclingPowerProfileChart
+{
   PowerType type;
   std::string description;
 
-  // power values
-  std::vector<double> values;
+  // power (watt/kg) categorirized as range (lower limit, upper limit)
+  std::array<CyclingPowerProfileCategory,8> categories;
+};
 
-  // power classifications as range (lower limit, upper limit)
-
-  // world class (international pro)
-  std::pair<double, double> world;
-
-  // domestic pro
-  std::pair<double, double> excellent;
-
-  // very good (Cat1)
-  std::pair<double, double> very_good;
-
-  // good (Cat2)
-  std::pair<double, double> good;
-
-  // moderate (Cat3)
-  std::pair<double, double> moderate;
-
-  // fair
-  std::pair<double, double> fair;
-
-  // untrained
-  std::pair<double, double> untrained;
+struct CyclingPowerProfile
+{
+    std::array<CyclingPowerProfileChart, 4> male;
+    std::array<CyclingPowerProfileChart, 4> female;
 };
 
 #endif  // CYCLINGPOWERPROFILECHART_H
