@@ -85,7 +85,8 @@ int main(int argc, char *argv[]) {
   parser.addVersionOption();
 
   parser.addOptions(
-      {{{"w", "weight"}, "Athlete's weight (kg).", "70.5"},
+      {{{"g", "gender"}, "Athlete's gender (m or f).", "m"},
+       {{"w", "weight"}, "Athlete's weight (kg).", "70.5"},
        {{"ftp", "ftp"}, "Functional threshold power - 60min (W).", "250"},
        {{"vo2", "vo2"}, "Peak aerobic power - 5min (W).", "410"},
        {{"ana", "ana"}, "Peak anaerobic power - 1min (W).", "620"},
@@ -93,6 +94,7 @@ int main(int argc, char *argv[]) {
 
   parser.process(a);
 
+  QString gender = parser.value("gender").toLower();
   QString kg = parser.value("weight");
   QString ppo60 = parser.value("ftp");
   QString ppo5 = parser.value("vo2");
@@ -100,7 +102,8 @@ int main(int argc, char *argv[]) {
   QString ppo5s = parser.value("nmu");
 
   // init athlete
-  Athlete me(Gender::kMale);
+
+  Athlete me(gender.at(0) == "m" ? Gender::kMale : Gender::kFemale);
   Weight w{Weight::dummy{}, kg.toDouble()};
   // Weight w = 65.6_kg;
   me.set_weight(w);

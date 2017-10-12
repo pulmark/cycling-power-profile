@@ -46,6 +46,13 @@ double watts_per_kg(double power, const Weight &weight) {
   return static_cast<double>(power / weight.kg());
 }
 
+const std::map<PowerType, std::string> PowerTypeList{
+    {PowerType::kFt, "60min Best Power(FTP)"},
+    {PowerType::k5Min, "5min Best Power"},
+    {PowerType::k1Min, "1min Best Power"},
+    {PowerType::k5Sec, "5sec Best Power"},
+};
+
 const std::map<Category, std::string> CategoryList{
     {Category::kUntrained, "Untrained"},
     {Category::kFair, "Fair"},
@@ -181,34 +188,38 @@ bool CyclingPowerProfiler::InitQuery(PowerType type, double watts,
 bool CyclingPowerProfiler::SaveQuery(ProfileFormat /* format */) {
 
   json j;
-
-  j["date"] = query_.date;
+  j["date_time"] = query_.date;
   j["description"] = query_.name;
-  j["athlete weight"] = query_.request.weight;
-  j["athlete gender"] = query_.request.gender;
 
   json request;
-
+  request["athlete"] = {
+      {"gender", (query_.request.gender == Gender::kMale ? "male" : "female")},
+      {"weight", query_.request.weight}};
   // request["power unit"] = query_.request.unit;
-
-  json j_vec1(query_.request.power);
-  request["power [W]"] = j_vec1;
-
+  json items;
+  for (auto &&k : query_.request.power) {
+    json item;
+    item["unit"] = "W";
+    item["id"] = PowerTypeList.at(k.first);
+    item["value"] = k.second;
+    items.push_back(item);
+  }
+  request["athlete_power"] = items;
   j["query"] = request;
 
   json response;
-
   response["status"] = query_.response.status;
-  json items;
+  items.clear();
   for (auto &&k : query_.response.items) {
     json item;
-    item["id"] = k.type;
+    item["power_id"] = PowerTypeList.at(k.type);
+    item["power_unit"] = "W/kg";
     std::stringstream tmp;
     tmp << std::setprecision(2) << std::fixed << k.watts;
-    item["power [W/kg]"] = stod(tmp.str());
-    item["power [%]"] = static_cast<int>(k.procents);
-    item["power profile"] = k.category_name;
-    item["power range"] = k.category_range;
+    item["power_value"] = stod(tmp.str());
+    item["range_position"] = 100 - static_cast<int>(k.procents);
+    item["category_name"] = k.category_name;
+    item["range_power_value"] = k.category_range;
     item["target"] = (k.is_goal ? "yes" : "no");
     items.push_back(item);
   }
@@ -226,9 +237,11 @@ bool CyclingPowerProfiler::Run(const Athlete &athlete) {
   query_.request.gender = athlete.gender();
   query_.request.weight = athlete.weight().kg();
 
-  auto now = std::chrono::system_clock::now();
-  auto time_now = std::chrono::system_clock::to_time_t(now);
-  query_.date = std::ctime(&time_now);
+  auto t = std::time(nullptr);
+  auto tm = *std::localtime(&t);
+  std::ostringstream oss;
+  oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+  query_.date = oss.str();
   query_.name = "cycling power profile";
   query_.request.unit = PowerUnit::kWatt;
 
