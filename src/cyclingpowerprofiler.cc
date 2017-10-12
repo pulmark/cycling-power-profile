@@ -24,9 +24,23 @@
 
 #include <chrono>
 #include <ctime>
+#include <iomanip>
+#include <iostream>
+#include <sstream>
 
 #include "CyclingPowerProfiler.h"
-// #include "json.hpp"
+#include "json.hpp"
+using json = nlohmann::json;
+
+/*
+void to_json(json &j, const QueryResponseItem &r) {
+  j = json{{"category", r.category_name}, {"category range", r.category_range},
+           {"goal", r.is_goal},           {"procent", r.procents},
+           {"power type", r.type},        {"power (W)", r.watts}};
+}
+
+void from_json(const json &j, QueryResponseItem &r) {}
+*/
 
 double watts_per_kg(double power, const Weight &weight) {
   return static_cast<double>(power / weight.kg());
@@ -165,7 +179,45 @@ bool CyclingPowerProfiler::InitQuery(PowerType type, double watts,
 }
 
 bool CyclingPowerProfiler::SaveQuery(ProfileFormat /* format */) {
-  return false;
+
+  json j;
+
+  j["date"] = query_.date;
+  j["description"] = query_.name;
+  j["athlete weight"] = query_.request.weight;
+  j["athlete gender"] = query_.request.gender;
+
+  json request;
+
+  // request["power unit"] = query_.request.unit;
+
+  json j_vec1(query_.request.power);
+  request["power [W]"] = j_vec1;
+
+  j["query"] = request;
+
+  json response;
+
+  response["status"] = query_.response.status;
+  json items;
+  for (auto &&k : query_.response.items) {
+    json item;
+    item["id"] = k.type;
+    std::stringstream tmp;
+    tmp << std::setprecision(2) << std::fixed << k.watts;
+    item["power [W/kg]"] = stod(tmp.str());
+    item["power [%]"] = static_cast<int>(k.procents);
+    item["power profile"] = k.category_name;
+    item["power range"] = k.category_range;
+    item["target"] = (k.is_goal ? "yes" : "no");
+    items.push_back(item);
+  }
+  response["categories"] = items;
+  j["result"] = response;
+
+  std::cout << std::setw(4) << j << std::endl;
+
+  return true;
 }
 
 bool CyclingPowerProfiler::Run(const Athlete &athlete) {
@@ -177,7 +229,7 @@ bool CyclingPowerProfiler::Run(const Athlete &athlete) {
   auto now = std::chrono::system_clock::now();
   auto time_now = std::chrono::system_clock::to_time_t(now);
   query_.date = std::ctime(&time_now);
-  query_.name = "CyclingPowerProfiler";
+  query_.name = "cycling power profile";
   query_.request.unit = PowerUnit::kWatt;
 
   // calc input power values as W/kg for different power types
