@@ -28,7 +28,7 @@
 #include "CyclingPowerProfilerQuery.h"
 
 class CyclingPowerProfiler : public IProfiler {
- public:
+public:
   enum ProfileFormat { kInternal, kJson, kBson };
 
   explicit CyclingPowerProfiler() : male_{}, female_{}, query_{} {}
@@ -41,16 +41,17 @@ class CyclingPowerProfiler : public IProfiler {
   void ResetQuery();
 
   // initializes a new query
-  bool InitQuery(PowerType type, int watts);
+  bool InitQuery(PowerType type, double watts,
+                 PowerUnit unit = PowerUnit::kWatt);
 
   // saves last query (request & result)
   bool SaveQuery(ProfileFormat format = kJson);
 
   // does profiling for given athlete
-  bool Run(const Athlete& athlete);
+  bool Run(const Athlete &athlete);
 
- protected:
- private:
+protected:
+private:
   // power profile charts for male cyclists
   std::vector<CyclingPowerProfileChart> male_;
 
@@ -63,17 +64,18 @@ class CyclingPowerProfiler : public IProfiler {
   // loads power profile charts
   bool LoadPowerProfileChart(ProfileFormat format = kInternal);
 
-  int CalcPowerProfile(double power, CyclingPowerProfileChart& chart,
-                       QueryResponse& result);
-  int CalcPowerProfileGoal(long idx, CyclingPowerProfileChart& chart,
-                           QueryResponse& result);
+  Category CalcPowerProfile(double power, CyclingPowerProfileChart &chart,
+                            QueryResponse &result);
+
+  Category CalcPowerProfileGoal(Category cat, CyclingPowerProfileChart &chart,
+                                QueryResponse &result);
 
   // file names to store/load power profile chart
-  static constexpr const char* kFileNameJson_ = "CyclingPowerProfileChart.json";
-  static constexpr const char* kFileNameBson_ = "CyclingPowerProfileChart.bson";
+  static constexpr const char *kFileNameJson_ = "CyclingPowerProfileChart.json";
+  static constexpr const char *kFileNameBson_ = "CyclingPowerProfileChart.bson";
 
   // file name for query has the form: <date>_RCPQ.json or <date>_RCPQ.bson
-  static constexpr const char* kFileNameSuffixQuery_ = "_RCPQ";
+  static constexpr const char *kFileNameSuffixQuery_ = "_RCPQ";
 };
 
-#endif  // CYCLINGPOWERPROFILER_H
+#endif // CYCLINGPOWERPROFILER_H

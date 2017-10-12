@@ -29,9 +29,9 @@ class Athlete;
 
 class IProfiler {
 public:
-    IProfiler() {}
-    virtual ~IProfiler() {}
-    virtual bool Run(const Athlete& athlete) = 0;
+  IProfiler() {}
+  virtual ~IProfiler() {}
+  virtual bool Run(const Athlete &athlete) = 0;
 };
 
-#endif  // IPROFILER_H
+#endif // IPROFILER_H

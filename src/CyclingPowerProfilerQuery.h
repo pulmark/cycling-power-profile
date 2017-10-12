@@ -91,31 +91,31 @@
 #include "CyclingPowerProfileChart.h"
 
 struct QueryRequest {
-  Gender gender;
-  double weight;
-  PowerUnit unit;
-  std::vector<std::pair<PowerType, double> > power;
+  Gender gender{};
+  double weight{};
+  PowerUnit unit{};
+  std::vector<std::pair<PowerType, double>> power;
 };
 
 struct QueryResponseItem {
-  PowerType type;
-  int watts;
-  std::string classification;
-  double procents;
-  std::pair<double, double> class_range;
-  bool is_goal;
+  PowerType type{};
+  double watts{};
+  double procents{};
+  std::string category_name{};
+  std::pair<double, double> category_range;
+  bool is_goal{};
 };
 
 struct QueryResponse {
-  int status;
+  int status{};
   std::vector<QueryResponseItem> items;
 };
 
 struct CyclingPowerProfilerQuery {
-  std::string name;
-  std::string date;
-  QueryRequest request;
-  QueryResponse response;
+  std::string name{};
+  std::string date{};
+  QueryRequest request{};
+  QueryResponse response{};
 };
 
-#endif  // CYCLINGPOWERPROFILERQUERY_H
+#endif // CYCLINGPOWERPROFILERQUERY_H

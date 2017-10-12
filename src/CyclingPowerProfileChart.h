@@ -23,13 +23,15 @@
 #ifndef CYCLINGPOWERPROFILECHART_H
 #define CYCLINGPOWERPROFILECHART_H
 
+#include <array>
+#include <map>
 #include <utility>
 #include <vector>
-#include <array>
 
 // enumerations for different categories
 enum class Category {
-  kUntrained = 1,
+  kUndefined = 0,
+  kUntrained,
   kFair,
   kModerate,
   kGood,
@@ -52,8 +54,8 @@ struct CyclingPowerProfileCategory {
       : id(c), low(l), high(h) {}
 
   Category id{};
-  double low = 0.0;   // lowest power(W/kg)
-  double high = 0.0;  // highest power(W/kg)
+  double low = 0.0;  // lowest power(W/kg)
+  double high = 0.0; // highest power(W/kg)
 };
 
 //////////////////////////////////////////////////////////////////////////////
@@ -71,5 +73,4 @@ struct CyclingPowerProfile {
   std::array<CyclingPowerProfileChart, 4> female;
 };
 
-
-#endif  // CYCLINGPOWERPROFILECHART_H
+#endif // CYCLINGPOWERPROFILECHART_H

@@ -22,17 +22,87 @@
 
 /* code */
 
+/*
+#include <QDebug>
+#include <QSharedPointer>
+#include <QtCore>
+
+class Task : public QObject
+{
+    Q_OBJECT
+
+public:
+    Task(QObject *parent = 0) : QObject(parent) {}
+
+public slots:
+    void run()
+    {
+        qDebug() << "Hello World from the Event Loop" << endl;
+        emit finished();
+    }
+
+signals:
+    void finished();
+};
+
+#include "main.moc"
+
+int main(int argc, char *argv[])
+{
+    QCoreApplication a(argc, argv);
+    // Task parented to the application so that it
+    // will be deleted by the application.
+    QSharedPointer<Task> task(new Task(&a));
+
+    // This will cause the application to exit when
+    // the task signals finished.
+    QObject::connect(task.data(), SIGNAL(finished()), &a, SLOT(quit()));
+
+    // This will run the task from the application event loop.
+    QTimer::singleShot(0, task.data(), SLOT(run()));
+
+    return a.exec();
+}
+*/
+
+#include <QCommandLineParser>
 #include <QCoreApplication>
 
 #include "CyclingPowerProfiler.h"
 #include "json.hpp"
 
 int main(int argc, char *argv[]) {
+  // init app
   QCoreApplication a(argc, argv);
+  QCoreApplication::setApplicationName("PowerProfiler");
+  QCoreApplication::setApplicationVersion("1.0.0");
+
+  // do command-line parsing
+  QCommandLineParser parser;
+  parser.setSingleDashWordOptionMode(QCommandLineParser::ParseAsLongOptions);
+  parser.setApplicationDescription("Power profiling tool for road cycling");
+  parser.addHelpOption();
+  parser.addVersionOption();
+
+  parser.addOptions(
+      {{{"w", "weight"}, "Athlete's weight (kg).", "70.5"},
+       {{"ftp", "ftp"}, "Functional threshold power - 60min (W).", "250"},
+       {{"vo2", "vo2"}, "Peak aerobic power - 5min (W).", "410"},
+       {{"ana", "ana"}, "Peak anaerobic power - 1min (W).", "620"},
+       {{"nmu", "nmu"}, "Peak neuromuscular power - 5sec (W).", "910"}});
+
+  parser.process(a);
+
+  QString kg = parser.value("weight");
+  QString ppo60 = parser.value("ftp");
+  QString ppo5 = parser.value("vo2");
+  QString ppo1 = parser.value("ana");
+  QString ppo5s = parser.value("nmu");
 
   // init athlete
   Athlete me(Gender::kMale);
-  Weight w = 65.6_kg;
+  Weight w{Weight::dummy{}, kg.toDouble()};
+  // Weight w = 65.6_kg;
   me.set_weight(w);
 
   // init profiler
@@ -42,10 +112,10 @@ int main(int argc, char *argv[]) {
 
   // build query for power profiling
   profiler->ResetQuery();
-  profiler->InitQuery(PowerType::kFt, 257.0);
-  profiler->InitQuery(PowerType::k5Min, 416.0);
-  profiler->InitQuery(PowerType::k1Min, 630.0);
-  profiler->InitQuery(PowerType::k5Sec, 870.0);
+  profiler->InitQuery(PowerType::kFt, ppo60.toDouble());
+  profiler->InitQuery(PowerType::k5Min, ppo5.toDouble());
+  profiler->InitQuery(PowerType::k1Min, ppo1.toDouble());
+  profiler->InitQuery(PowerType::k5Sec, ppo5s.toDouble());
 
   // run profiling on athlete 'me'
   me.set_profiler(profiler);
