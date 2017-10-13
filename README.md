@@ -13,6 +13,7 @@ Below image of the power profile chart:
 
 Below is CLI test program output in JSON format:
 
+>./PowerProfiler -g m -w 64 -ftp 257 -vo2 304 -ana 539 -nmu 937
 ```
 {
     "date_time": "13-10-2017 14-49-40",
