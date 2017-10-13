@@ -253,11 +253,18 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
     item["value"] = k.second;
     items.push_back(item);
   }
-  request["athlete_power"] = items;
+  request["cycling_power"] = items;
   j["query"] = request;
 
   json response;
   response["status"] = query_.response.status;
+
+  for (auto &&k : CategoryList) {
+    std::ostringstream ss;
+    ss << static_cast<int>(k.first);
+    response["categories"][ss.str()] = k.second;
+  }
+
   items.clear();
   for (auto &&k : query_.response.items) {
     json item;
@@ -267,12 +274,12 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
     tmp << std::setprecision(2) << std::fixed << k.watts;
     item["power_value"] = stod(tmp.str());
     item["range_position"] = 100 - static_cast<int>(k.procents);
-    item["category_name"] = k.category_name;
+    item["category"] = k.category_name;
     item["range_power_value"] = k.category_range;
     item["target"] = (k.is_goal ? "yes" : "no");
     items.push_back(item);
   }
-  response["categories"] = items;
+  response["cycling_profile"] = items;
   j["result"] = response;
 
   s << std::setw(4) << j << std::endl;
