@@ -1,10 +1,10 @@
 # cycling-power-profile
 
-Multi platform (Linux, Windows or Android) app to determine power profile for road cyclists that use power meter for training. Uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
+Multi platform (Linux, Windows or Android) app to determine power profile for road cyclists that use power meter for riding and training. Uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
 
 Depends on Qt cross-platform application development toolkit.
 
-Below image of the power profile chart:
+Below image of the power profile chart utilized in profile calculations:
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31544246-846eff42-b022-11e7-826b-8b9e1a825474.gif" width="720"/>
