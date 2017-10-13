@@ -1,4 +1,4 @@
-# Cycling Power Profiler
+# Power Profiler for Cycling
 
 Multi platform (Linux, Windows or Android) app to determine power profile for road cyclists that use power meter for riding and training. Uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
 
