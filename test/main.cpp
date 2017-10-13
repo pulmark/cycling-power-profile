@@ -85,12 +85,12 @@ int main(int argc, char *argv[]) {
   parser.addVersionOption();
 
   parser.addOptions(
-      {{{"g", "gender"}, "Athlete's gender (m or f).", "m"},
-       {{"w", "weight"}, "Athlete's weight (kg).", "70.5"},
-       {{"ftp", "ftp"}, "Functional threshold power - 60min (W).", "250"},
-       {{"vo2", "vo2"}, "Peak aerobic power - 5min (W).", "410"},
-       {{"ana", "ana"}, "Peak anaerobic power - 1min (W).", "620"},
-       {{"nmu", "nmu"}, "Peak neuromuscular power - 5sec (W).", "910"}});
+      {{{"g", "gender"}, "Athlete's gender.", "gender", "male"},
+       {{"w", "weight"}, "Athlete's weight.", "weight", "65.0"},
+       {{"ftp", "ftp"}, "Functional threshold power-60min (W).", "ftp", "257"},
+       {{"vo2", "vo2"}, "Peak aerobic power-5min (W).", "ppo5m", "0"},
+       {{"ana", "ana"}, "Peak anaerobic power-1min (W).", "ppo1m", "0"},
+       {{"nmu", "nmu"}, "Peak neuromuscular power-5sec (W).", "ppo5s", "0"}});
 
   parser.process(a);
 
