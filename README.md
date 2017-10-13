@@ -25,22 +25,22 @@ Below is CLI test program output in JSON format:
         },
         "cycling_power": [
             {
-                "id": "60min Best Power(FTP)",
+                "effort": "60min Best Power(FTP)",
                 "unit": "W",
                 "value": 257.0
             },
             {
-                "id": "5min Best Power",
+                "effort": "5min Best Power",
                 "unit": "W",
                 "value": 304.0
             },
             {
-                "id": "1min Best Power",
+                "effort": "1min Best Power",
                 "unit": "W",
                 "value": 539.0
             },
             {
-                "id": "5sec Best Power",
+                "effort": "5sec Best Power",
                 "unit": "W",
                 "value": 937.0
             }
@@ -60,7 +60,7 @@ Below is CLI test program output in JSON format:
         "cycling_profile": [
             {
                 "category": "Good",
-                "power_id": "60min Best Power(FTP)",
+                "effort": "60min Best Power(FTP)",
                 "power_unit": "W/kg",
                 "power_value": 4.02,
                 "range_position": 23,
@@ -72,7 +72,7 @@ Below is CLI test program output in JSON format:
             },
             {
                 "category": "Good",
-                "power_id": "5min Best Power",
+                "effort": "5min Best Power",
                 "power_unit": "W/kg",
                 "power_value": 4.75,
                 "range_position": 31,
@@ -84,7 +84,7 @@ Below is CLI test program output in JSON format:
             },
             {
                 "category": "Good",
-                "power_id": "1min Best Power",
+                "effort": "1min Best Power",
                 "power_unit": "W/kg",
                 "power_value": 8.42,
                 "range_position": 22,
@@ -96,7 +96,7 @@ Below is CLI test program output in JSON format:
             },
             {
                 "category": "Moderate",
-                "power_id": "5sec Best Power",
+                "effort": "5sec Best Power",
                 "power_unit": "W/kg",
                 "power_value": 14.64,
                 "range_position": 44,
