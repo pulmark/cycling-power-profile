@@ -249,7 +249,7 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
   for (auto &&k : query_.request.power) {
     json item;
     item["unit"] = "W";
-    item["id"] = PowerTypeList.at(k.first);
+    item["effort"] = PowerTypeList.at(k.first);
     item["value"] = k.second;
     items.push_back(item);
   }
@@ -268,7 +268,7 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
   items.clear();
   for (auto &&k : query_.response.items) {
     json item;
-    item["power_id"] = PowerTypeList.at(k.type);
+    item["effort"] = PowerTypeList.at(k.type);
     item["power_unit"] = "W/kg";
     std::stringstream tmp;
     tmp << std::setprecision(2) << std::fixed << k.watts;
