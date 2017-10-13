@@ -1,10 +1,10 @@
 {
-    "date_time": "13-10-2017 12-42-08",
+    "date_time": "13-10-2017 14-49-40",
     "description": "cycling power profile",
     "query": {
         "athlete": {
             "gender": "male",
-            "weight": 67.5
+            "weight": 64.0
         },
         "cycling_power": [
             {
@@ -25,7 +25,7 @@
             {
                 "id": "5sec Best Power",
                 "unit": "W",
-                "value": 905.0
+                "value": 937.0
             }
         ]
     },
@@ -45,8 +45,8 @@
                 "category": "Good",
                 "power_id": "60min Best Power(FTP)",
                 "power_unit": "W/kg",
-                "power_value": 3.81,
-                "range_position": 53,
+                "power_value": 4.02,
+                "range_position": 23,
                 "range_power_value": [
                     3.47,
                     4.18
@@ -57,8 +57,8 @@
                 "category": "Good",
                 "power_id": "5min Best Power",
                 "power_unit": "W/kg",
-                "power_value": 4.5,
-                "range_position": 62,
+                "power_value": 4.75,
+                "range_position": 31,
                 "range_power_value": [
                     4.19,
                     5.01
@@ -69,8 +69,8 @@
                 "category": "Good",
                 "power_id": "1min Best Power",
                 "power_unit": "W/kg",
-                "power_value": 7.99,
-                "range_position": 71,
+                "power_value": 8.42,
+                "range_position": 22,
                 "range_power_value": [
                     7.71,
                     8.63
@@ -78,14 +78,14 @@
                 "target": "no"
             },
             {
-                "category": "Fair",
+                "category": "Moderate",
                 "power_id": "5sec Best Power",
                 "power_unit": "W/kg",
-                "power_value": 13.41,
-                "range_position": 27,
+                "power_value": 14.64,
+                "range_position": 44,
                 "range_power_value": [
-                    11.8,
-                    13.98
+                    13.44,
+                    15.61
                 ],
                 "target": "no"
             }
@@ -93,3 +93,4 @@
         "status": 0
     }
 }
+
