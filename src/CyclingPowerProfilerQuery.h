@@ -22,60 +22,92 @@
 
 /* code */
 
-/* query contents:
+/* power profiler query and response contents (JSON format):
 
 {
-  "name": "road-cycling-profiler-query",
-  "date": "2012-04-23T18:25:43.511Z",
-  "request": {
-    "gender": "male",
-    "weight": 65,
-    "power-type": "ft",
-    "power-unit": "w",
-    "watts": 300
-  },
-  "response": {
-    "status": 0,
-    "result": [
-      {
-        "power-type": "ft",
-        "watts": 300,
-        "class": "good",
-        "procents": 25,
-        "range": [
-          280,
-          360
+    "date_time": "13-10-2017 09-35-18",
+    "description": "cycling power profile",
+    "query": {
+        "athlete": {
+            "gender": "female",
+            "weight": 67.5
+        },
+        "athlete_power": [
+            {
+                "id": "60min Best Power(FTP)",
+                "unit": "W",
+                "value": 257.0
+            },
+            {
+                "id": "5min Best Power",
+                "unit": "W",
+                "value": 304.0
+            },
+            {
+                "id": "1min Best Power",
+                "unit": "W",
+                "value": 539.0
+            },
+            {
+                "id": "5sec Best Power",
+                "unit": "W",
+                "value": 905.0
+            }
         ]
-      },
-      {
-        "power-type": "5min",
-        "watts": 330,
-        "class": "moderate",
-        "range": [
-          300,
-          340
-        ]
-      },
-      {
-        "power-type": "1min",
-        "watts": 540,
-        "class": "good",
-        "range": [
-          500,
-          600
-        ]
-      },
-      {
-        "power-type": "5sec",
-        "watts": 920,
-        "class": "good",
-        "range": [
-          890,
-          1010
-        ]
-      }
-    ]
-  }
+    },
+    "result": {
+        "categories": [
+            {
+                "category_name": "Very Good",
+                "power_id": "60min Best Power(FTP)",
+                "power_unit": "W/kg",
+                "power_value": 3.81,
+                "range_position": 61,
+                "range_power_value": [
+                    3.55,
+                    4.21
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Very Good",
+                "power_id": "5min Best Power",
+                "power_unit": "W/kg",
+                "power_value": 4.5,
+                "range_position": 59,
+                "range_power_value": [
+                    4.2,
+                    4.94
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Excellent",
+                "power_id": "1min Best Power",
+                "power_unit": "W/kg",
+                "power_value": 7.99,
+                "range_position": 30,
+                "range_power_value": [
+                    7.48,
+                    8.2
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Good",
+                "power_id": "5sec Best Power",
+                "power_unit": "W/kg",
+                "power_value": 13.41,
+                "range_position": 37,
+                "range_power_value": [
+                    12.31,
+                    14.03
+                ],
+                "target": "no"
+            }
+        ],
+        "status": 0
+    }
 }
 
 */

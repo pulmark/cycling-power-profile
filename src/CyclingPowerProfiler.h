@@ -25,6 +25,8 @@
 #ifndef CYCLINGPOWERPROFILER_H
 #define CYCLINGPOWERPROFILER_H
 
+#include <iostream>
+
 #include "CyclingPowerProfilerQuery.h"
 
 class CyclingPowerProfiler : public IProfiler {
@@ -45,7 +47,7 @@ public:
                  PowerUnit unit = PowerUnit::kWatt);
 
   // saves last query (request & result)
-  bool SaveQuery(ProfileFormat format = kJson);
+  bool SaveQuery(std::ostream &s, ProfileFormat format = kJson);
 
   // does profiling for given athlete
   bool Run(const Athlete &athlete);
@@ -69,6 +71,8 @@ private:
 
   Category CalcPowerProfileGoal(Category cat, CyclingPowerProfileChart &chart,
                                 QueryResponse &result);
+
+  bool SaveQueryJson(std::ostream &s);
 
   // file names to store/load power profile chart
   static constexpr const char *kFileNameJson_ = "CyclingPowerProfileChart.json";

@@ -1,0 +1,86 @@
+{
+    "date_time": "13-10-2017 09-46-56",
+    "description": "cycling power profile",
+    "query": {
+        "athlete": {
+            "gender": "male",
+            "weight": 67.5
+        },
+        "athlete_power": [
+            {
+                "id": "60min Best Power(FTP)",
+                "unit": "W",
+                "value": 257.0
+            },
+            {
+                "id": "5min Best Power",
+                "unit": "W",
+                "value": 304.0
+            },
+            {
+                "id": "1min Best Power",
+                "unit": "W",
+                "value": 539.0
+            },
+            {
+                "id": "5sec Best Power",
+                "unit": "W",
+                "value": 905.0
+            }
+        ]
+    },
+    "result": {
+        "categories": [
+            {
+                "category_name": "Good",
+                "power_id": "60min Best Power(FTP)",
+                "power_unit": "W/kg",
+                "power_value": 3.81,
+                "range_position": 53,
+                "range_power_value": [
+                    3.47,
+                    4.18
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Good",
+                "power_id": "5min Best Power",
+                "power_unit": "W/kg",
+                "power_value": 4.5,
+                "range_position": 62,
+                "range_power_value": [
+                    4.19,
+                    5.01
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Good",
+                "power_id": "1min Best Power",
+                "power_unit": "W/kg",
+                "power_value": 7.99,
+                "range_position": 71,
+                "range_power_value": [
+                    7.71,
+                    8.63
+                ],
+                "target": "no"
+            },
+            {
+                "category_name": "Fair",
+                "power_id": "5sec Best Power",
+                "power_unit": "W/kg",
+                "power_value": 13.41,
+                "range_position": 27,
+                "range_power_value": [
+                    11.8,
+                    13.98
+                ],
+                "target": "no"
+            }
+        ],
+        "status": 0
+    }
+}
+

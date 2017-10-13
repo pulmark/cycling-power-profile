@@ -124,8 +124,8 @@ int main(int argc, char *argv[]) {
   me.set_profiler(profiler);
   me.DoProfiling();
 
-  // save query and its results
-  profiler->SaveQuery();
+  // print query and its results into console output
+  profiler->SaveQuery(std::cout);
 
   return a.exec();
 }
