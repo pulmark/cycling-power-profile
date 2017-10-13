@@ -4,14 +4,14 @@ Multi platform (Linux, Windows or Android) app to determine power profile for ro
 
 Depends on Qt cross-platform application development toolkit.
 
-Below image of the power profile chart utilized in profile calculations:
+Following image shows the power profile chart utilized in profile calculations:
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31544246-846eff42-b022-11e7-826b-8b9e1a825474.gif" width="720"/>
 </p>
 
 
-Below is CLI test program output in JSON format:
+Following CLI test program output shows profile query and results in JSON format:
 
 >./PowerProfiler -g m -w 64 -ftp 257 -vo2 304 -ana 539 -nmu 937
 ```
