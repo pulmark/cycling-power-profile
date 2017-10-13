@@ -1,0 +1,122 @@
+{
+  "name": "power-profile-chart",
+  "power-unit": "W/kg",
+  "genders": {
+    "male": [
+      {
+        "power-type": "ft",
+        "description": "maximum lactate steady state (MLSS)",
+        "category": {
+          "world": [5.69,6.40],
+          "exceptional": [5.15,5.87],
+          "excellent": [4.62,5.33],
+          "very-good": [4.09,4.80],
+          "good": [3.47,4.18],
+          "moderate": [2.93,3.64],
+          "fair": [2.40,3.11],
+          "untrained": [1.86,2.58]
+        }
+      },
+      {
+        "power-type": "5min",
+        "description": "maximum aerobic power (MAP)",
+        "category": {
+          "world": [6.77,7.60],
+          "exceptional": [6.15,6.98],
+          "excellent": [5.53,6.36],
+          "very-good": [4.91,5.74],
+          "good": [4.19,5.01],
+          "moderate": [3.57,4.39],
+          "fair": [2.95,3.77],
+          "untrained": [2.33,3.15]
+        }
+      },
+      {
+        "power-type": "1min",
+        "description": "anaerobic (LT2)",
+        "category": {
+          "world": [10.58,11.50],
+          "exceptional": [9.89,10.81],
+          "excellent": [9.20,10.12],
+          "very-good": [8.51,9.43],
+          "good": [7.71,8.63],
+          "moderate": [7.02,7.94],
+          "fair": [6.33,7.25],
+          "untrained": [5.64,6.56]
+        }
+      },
+      {
+        "power-type": "5sec",
+        "description": "neuro-muscular (NM)",
+        "category": {
+          "world": [21.86,24.04],
+          "exceptional": [20.23,22.41],
+          "excellent": [18.60,20.78],
+          "very-good": [16.97,19.45],
+          "good": [15.07,17.24],
+          "moderate": [13.44,15.61],
+          "fair": [11.80,13.98],
+          "untrained": [10.17,12.35]
+        }
+      }
+    ]
+  },
+  "female": [
+    {
+      "power-type": "ft",
+      "description": "maximum lactate steady state (MLSS)",
+      "category": {
+        "world": [5.03,5.69],
+        "exceptional": [4.54,5.20],
+        "excellent": [4.05,4.70],
+        "very-good": [3.55,4.21],
+        "good": [2.98,3.64],
+        "moderate": [2.49,3.14],
+        "fair": [1.99,2.65],
+        "untrained": [1.50,2.16]
+      }
+    },
+    {
+      "power-type": "5min",
+      "description": "maximum aerobic power (MAP)",
+      "category": {
+        "world": [5.87,6.61],
+        "exceptional": [5.31,6.05],
+        "excellent": [4.76,5.50],
+        "very-good": [4.20,4.94],
+        "good": [3.56,4.30],
+        "moderate": [3.00,3.74],
+        "fair": [2.45,3.19],
+        "untrained": [1.89,2.63]
+      }
+    },
+    {
+      "power-type": "1min",
+      "description": "anaerobic (LT2)",
+      "category": {
+        "world": [8.56,9.29],
+        "exceptional": [8.02,8.75],
+        "excellent": [7.48,8.20],
+        "very-good": [6.93,7.66],
+        "good": [6.30,7.02],
+        "moderate": [5.76,6.48],
+        "fair": [5.21,5.94],
+        "untrained": [4.67,5.39]
+      }
+    },
+    {
+      "power-type": "5sec",
+      "description": "neuro-muscular (NM)",
+      "category": {
+        "world": [17.70,19.42],
+        "exceptional": [16.40,18.13],
+        "excellent": [15.11,16.83],
+        "very-good": [13.82,15.54],
+        "good": [12.31,14.03],
+        "moderate": [11.01,12.74],
+        "fair": [9.72,11.45],
+        "untrained": [8.43,10.15]
+      }
+    }
+  ]
+}
