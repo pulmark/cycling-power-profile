@@ -192,7 +192,7 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
       item.watts = watts;
       item.category_name = CategoryList.at(c.id);
       item.category_range = std::make_pair(c.low, c.high);
-      item.procents = ((watts - c.low) / (c.high - c.low)) * 100;
+      item.procents = 100 - (((watts - c.low) / (c.high - c.low)) * 100);
       item.is_goal = false;
       result.items.push_back(item);
       return c.id;
@@ -209,8 +209,8 @@ Category CyclingPowerProfiler::CalcPowerProfileGoal(
     if (cat == c.id) {
       QueryResponseItem item;
       item.type = chart.type;
-      item.watts = 0;
-      item.procents = 0;
+      item.watts = c.low;
+      item.procents = 100;
       item.category_name = CategoryList.at(c.id);
       item.category_range = std::make_pair(c.low, c.high);
       item.is_goal = true;
@@ -273,7 +273,7 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
     std::stringstream tmp;
     tmp << std::setprecision(2) << std::fixed << k.watts;
     item["power_value"] = stod(tmp.str());
-    item["range_position"] = 100 - static_cast<int>(k.procents);
+    item["range_position"] = static_cast<int>(k.procents);
     item["category"] = k.category_name;
     item["range_power_value"] = k.category_range;
     item["target"] = (k.is_goal ? "yes" : "no");
