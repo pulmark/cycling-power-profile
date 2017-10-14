@@ -13,7 +13,7 @@ Following image shows the power profile chart utilized in profile calculations:
 
 Following CLI test program output shows profile query and results in JSON format:
 
->./PowerProfiler -g m -w 64 -ftp 257 -vo2 304 -ana 539 -nmu 937
+>./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 937
 ```
 {
     "date_time": "13-10-2017 14-49-40",
