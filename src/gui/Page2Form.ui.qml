@@ -71,8 +71,8 @@ Item {
 
     ProgressBar {
         id: progressBar0
-        x: 20
-        y: 258
+        x: 70
+        y: 227
         width: 410
         height: 20
         to: 6.40
@@ -84,8 +84,8 @@ Item {
 
     ProgressBar {
         id: progressBar1
-        x: 55
-        y: 258
+        x: 110
+        y: 227
         width: 410
         height: 20
         to: 7.60
@@ -97,8 +97,8 @@ Item {
 
     ProgressBar {
         id: progressBar2
-        x: 90
-        y: 258
+        x: 150
+        y: 227
         width: 410
         height: 20
         to: 11.50
@@ -110,8 +110,8 @@ Item {
 
     ProgressBar {
         id: progressBar3
-        x: 125
-        y: 258
+        x: 190
+        y: 227
         width: 410
         height: 20
         from: 10.17
@@ -123,38 +123,40 @@ Item {
 
     Label {
         id: label
-        x: 213
-        y: 479
+        x: 263
+        y: 464
         text: qsTr("FTP")
     }
 
     Label {
         id: label1
-        x: 245
-        y: 479
+        x: 300
+        y: 464
         text: qsTr("5min")
     }
 
     Label {
         id: label2
-        x: 280
-        y: 479
+        x: 340
+        y: 464
         text: qsTr("1min")
     }
 
     Label {
         id: label3
-        x: 317
-        y: 479
+        x: 380
+        y: 464
+        width: 31
+        height: 17
         text: qsTr("5sec")
     }
 
     Pane {
         id: pane
-        x: 21
-        y: 63
-        width: 156
-        height: 410
+        x: 33
+        y: 206
+        width: 172
+        height: 275
         padding: 5
         rightPadding: 5
         leftPadding: 5
@@ -168,40 +170,39 @@ Item {
             anchors.fill: parent
             Text {
                 color: "grey"
-                text: qsTr(
-                          "FTP [W/kg]:\n  Good\n  4.02 [3.47, 4.18]\n Rank: 23")
+                text: qsTr("FTP: Good\n  4.02 W/kg\n  Rank: 23[3.47, 4.18]")
             }
             Text {
                 color: "grey"
-                text: qsTr("5min [W/kg]:\n Good\n  4.75 [4.19, 5.01]\n  Rank: 31")
+                text: qsTr("5min: Good\n  4.75 W/kg\n  Rank: 31[4.19, 5.01]")
             }
             Text {
                 color: "grey"
-                text: qsTr("1min [W/kg]:\n Good\n  8.42 [7.71, 8.63]\n  Rank: 22")
+                text: qsTr("1min: Good\n  8.42 W/kg\n  Rank: 22[7.71, 8.63]")
             }
             Text {
                 color: "grey"
-                text: qsTr("5sec [W/kg]:\n Moderate\n  14.64 [13.44, 15.61]\n  Rank: 44")
+                text: qsTr("5sec: Moderate\n  14.64 W/kg\n  Rank: 44[13.44, 15.61]")
             }
         }
     }
 
     GroupBox {
         id: groupBox
-        x: 371
-        y: 63
-        width: 94
+        x: 33
+        y: 32
+        width: 172
         height: 143
         padding: 5
         enabled: true
-        title: qsTr("Power View:")
+        title: qsTr("Power Scope View:")
 
         Column {
             spacing: 5
 
             RadioButton {
                 id: radioButton1
-                text: qsTr("Range")
+                text: qsTr("Category")
             }
 
             RadioButton {
