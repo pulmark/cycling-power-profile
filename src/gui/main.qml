@@ -7,9 +7,6 @@ ApplicationWindow {
     width: 480
     height: 620
     title: qsTr("Cycling Power Profiler")
-    background: Rectangle {
-        color: "#CCCCCC"
-    }
 
     SwipeView {
         id: swipeView
@@ -19,11 +16,7 @@ ApplicationWindow {
         Page1 {
         }
 
-        Page {
-            Label {
-                text: qsTr("Profile View")
-                anchors.centerIn: parent
-            }
+        Page2 {
         }
     }
 
