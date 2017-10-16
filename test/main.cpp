@@ -60,8 +60,9 @@ int main(int argc, char *argv[]) {
   QSharedPointer<CyclingPowerProfilerTask> task(
       new CyclingPowerProfilerTask(&a));
 
+  task->setUI(UiType::kTerminal);
+
   // init task properties with user input values
-  task->setUI(true);
   task->setAthleteGender(parser.value("gender").toLower());
   task->setAthleteWeight(parser.value("weight"));
   task->setAthleteEffort(PowerType::kFt, parser.value("ftp"));

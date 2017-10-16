@@ -33,15 +33,22 @@
 
 #include "CyclingPowerProfiler.h"
 
+enum class UiType { kUndefined = 0, kTerminal, kGraphical, kTouchScreen };
+
 class CyclingPowerProfilerTask : public QObject {
   Q_OBJECT
 
 public:
   CyclingPowerProfilerTask(QObject *parent = 0)
-      : QObject(parent), m_gender("male"), m_weight("65.0"), m_ppo60("300.0"),
-        m_ppo5("400"), m_ppo1("600"), m_ppo5s("1100"), m_hasCLI(false) {}
+      : QObject{parent}, m_gender{"male"}, m_weight{"64.0"}, m_ppo60{"257.0"},
+        m_ppo5{"304"}, m_ppo1{"539"}, m_ppo5s{"937"}, m_queryResult{},
+        m_ui{UiType::kTerminal} {}
 
   virtual ~CyclingPowerProfilerTask() {}
+
+  // enums for power types and user interface
+  Q_ENUM(PowerType)
+  Q_ENUM(UiType)
 
   // athlete properties: gender, weight, best power for 60m, 5m, 1m and 5s
   Q_INVOKABLE void setAthleteGender(const QString &gender) {
@@ -69,13 +76,13 @@ public:
     }
   }
 
-  // get query result
-  Q_INVOKABLE void getQueryResult(QString &result) {
-    result = m_queryResult.readAll();
-  }
-
   // set user interface type
-  Q_INVOKABLE void setUI(bool hasCLI = false) { m_hasCLI = hasCLI; }
+  Q_INVOKABLE void setUI(UiType type) { m_ui = type; }
+
+  // get query result
+  Q_INVOKABLE void getQueryResult(QString &result) const {
+    result = m_queryResult;
+  }
 
 public slots:
   void calc() {
@@ -103,11 +110,12 @@ public slots:
     // retrieve and store(show) results
     std::ostringstream ss;
     profiler->SaveQuery(ss);
-    if (m_hasCLI)
-      std::cout << ss.str();
-    else
-      m_queryResult << ss.str().c_str();
-
+    m_queryResult = ss.str().c_str();
+    if (m_ui == UiType::kTerminal) {
+      QTextStream cout(stdout);
+      cout << m_queryResult;
+      cout.flush();
+    }
     emit finished();
   }
 
@@ -124,10 +132,10 @@ private:
   QString m_ppo5s;
 
   // power profiler query result (JSON format)
-  QTextStream m_queryResult;
+  QString m_queryResult;
 
-  // true if client has command-line user interface
-  bool m_hasCLI;
+  // user interface type
+  UiType m_ui;
 };
 
 #endif // CYCLINGPOWERPROFILERTASK_H
