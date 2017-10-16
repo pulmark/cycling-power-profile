@@ -80,11 +80,11 @@ Item {
         opacity: 1
         clip: false
         indeterminate: false
-        to: 6.40
-        from: 1.86
+        to: 100
+        from: 1
         transformOrigin: Item.Center
         rotation: 270
-        value: 4.02
+        value: 77
     }
 
     ProgressBar {
@@ -93,9 +93,9 @@ Item {
         y: 227
         width: 410
         height: 20
-        to: 7.60
-        from: 2.33
-        value: 4.75
+        to: 100
+        from: 1
+        value: 69
         rotation: 270
         transformOrigin: Item.Center
     }
@@ -106,9 +106,9 @@ Item {
         y: 227
         width: 410
         height: 20
-        to: 11.50
-        from: 5.64
-        value: 8.42
+        to: 100
+        from: 1
+        value: 78
         rotation: 270
         transformOrigin: Item.Center
     }
@@ -119,9 +119,9 @@ Item {
         y: 227
         width: 410
         height: 20
-        from: 10.17
-        to: 24.04
-        value: 14.64
+        to: 100
+        from: 1
+        value: 33
         rotation: 270
         transformOrigin: Item.Center
     }
@@ -187,7 +187,7 @@ Item {
             }
             Text {
                 color: "grey"
-                text: qsTr("5sec: Moderate\n  14.64 W/kg\n  Rank: 44/100 | [13.44, 15.61]")
+                text: qsTr("5sec: Moderate\n  14.14 W/kg\n  Rank: 67/100 | [13.44, 15.61]")
             }
         }
     }
@@ -197,7 +197,7 @@ Item {
         x: 33
         y: 32
         width: 172
-        height: 184
+        height: 145
         padding: 5
         enabled: true
         title: qsTr("Ranking View:")
@@ -212,7 +212,7 @@ Item {
                 autoExclusive: true
                 spacing: 2
                 checkable: true
-                checked: false
+                checked: true
             }
 
             RadioButton {
@@ -223,9 +223,10 @@ Item {
                 scale: 1
                 spacing: 2
                 checkable: true
-                checked: true
+                checked: false
             }
 
+/*
             RadioButton {
                 id: radioButton3
                 text: qsTr("Overall")
@@ -236,6 +237,7 @@ Item {
                 checkable: true
                 checked: false
             }
+*/
         }
     }
 

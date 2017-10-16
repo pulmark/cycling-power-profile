@@ -55,8 +55,8 @@ int main(int argc, char *argv[]) {
 
   parser.process(a);
 
-  // Task parented to the application so that it
-  // will be deleted by the application.
+  // Task parented to the application so that it will be deleted by the
+  // application.
   QSharedPointer<CyclingPowerProfilerTask> task(
       new CyclingPowerProfilerTask(&a));
 
@@ -70,8 +70,7 @@ int main(int argc, char *argv[]) {
   task->setAthleteEffort(PowerType::k1Min, parser.value("ana"));
   task->setAthleteEffort(PowerType::k5Sec, parser.value("nmu"));
 
-  // This will cause the application to exit when
-  // the task signals finished.
+  // This will cause the application to exit when the task signals finished.
   QObject::connect(task.data(), SIGNAL(calcCompleted()), &a, SLOT(quit()));
 
   // This will run the task from the application event loop.

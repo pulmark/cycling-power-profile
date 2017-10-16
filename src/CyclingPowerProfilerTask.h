@@ -94,7 +94,7 @@ public slots:
     m_ppo1.clear();
     m_ppo5s.clear();
     m_queryResult.clear();
-    clearCompleted();
+    emit clearCompleted();
   }
 
   void calc() {
