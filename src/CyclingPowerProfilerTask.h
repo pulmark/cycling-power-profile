@@ -85,6 +85,18 @@ public:
   }
 
 public slots:
+
+  void clear() {
+    m_gender.clear();
+    m_weight.clear();
+    m_ppo60.clear();
+    m_ppo5.clear();
+    m_ppo1.clear();
+    m_ppo5s.clear();
+    m_queryResult.clear();
+    clearCompleted();
+  }
+
   void calc() {
     // init athlete
     Athlete me(m_gender.at(0) == "m" ? Gender::kMale : Gender::kFemale);
@@ -116,11 +128,12 @@ public slots:
       cout << m_queryResult;
       cout.flush();
     }
-    emit finished();
+    emit calcCompleted();
   }
 
 signals:
-  void finished();
+  void calcCompleted();
+  void clearCompleted();
 
 private:
   // athlete properties
