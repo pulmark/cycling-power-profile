@@ -169,7 +169,7 @@ Following CLI test program output shows profile query and results in JSON format
 ```
 
 ## User Interface
-GUI is under development. Following image shows the rider property and profile view pages:
+GUI is under development. Following image shows first prototypes of rider property and power profile view pages:
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31622359-e3045294-b2a4-11e7-9bd3-bf05aee81ab8.jpg" />
