@@ -28,7 +28,7 @@ Currently rider properties are given manually via application GUI. In the future
 The calculation results shows the following parameters for each effort:
   * category (Untrained, Fair, Moderate, Good, Very Good, Excellent, Exceptional, World Class),
   * power as watts per kg,
-  * position (1-100) within category power for gender of the rider,
+  * position (1-100) within category,
   * overall position (1-100) by gender
   
 Following CLI test program output shows profile query and results in JSON format:
@@ -172,5 +172,5 @@ Following CLI test program output shows profile query and results in JSON format
 GUI is under development. Following image shows the rider property and profile view pages:
 
 <p align="left">
-  <img src="https://user-images.githubusercontent.com/22800635/31576907-91cc72c8-b10d-11e7-94b1-a64a6427809a.jpg" />
+  <img src="https://user-images.githubusercontent.com/22800635/31622359-e3045294-b2a4-11e7-9bd3-bf05aee81ab8.jpg" />
 </p>
