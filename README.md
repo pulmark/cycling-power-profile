@@ -13,10 +13,10 @@ Following image shows the power profile chart utilized in profile calculations:
 
 Following CLI test program output shows profile query and results in JSON format:
 
->./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 937
+>./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 905
 ```
 {
-    "date_time": "13-10-2017 14-49-40",
+    "date_time": "16-10-2017 13-25-54",
     "description": "cycling power profile",
     "query": {
         "athlete": {
@@ -42,7 +42,7 @@ Following CLI test program output shows profile query and results in JSON format
             {
                 "effort": "5sec Best Power",
                 "unit": "W",
-                "value": 937.0
+                "value": 905.0
             }
         ]
     },
@@ -63,11 +63,20 @@ Following CLI test program output shows profile query and results in JSON format
                 "effort": "60min Best Power(FTP)",
                 "power_unit": "W/kg",
                 "power_value": 4.02,
-                "range_position": 23,
-                "range_power_value": [
-                    3.47,
-                    4.18
-                ],
+                "ranking_category": {
+                    "position": 23,
+                    "range": [
+                        3.47,
+                        4.18
+                    ]
+                },
+                "ranking_gender": {
+                    "position": 52,
+                    "range": [
+                        1.86,
+                        6.4
+                    ]
+                },
                 "target": "no"
             },
             {
@@ -75,11 +84,20 @@ Following CLI test program output shows profile query and results in JSON format
                 "effort": "5min Best Power",
                 "power_unit": "W/kg",
                 "power_value": 4.75,
-                "range_position": 31,
-                "range_power_value": [
-                    4.19,
-                    5.01
-                ],
+                "ranking_category": {
+                    "position": 31,
+                    "range": [
+                        4.19,
+                        5.01
+                    ]
+                },
+                "ranking_gender": {
+                    "position": 54,
+                    "range": [
+                        2.33,
+                        7.6
+                    ]
+                },
                 "target": "no"
             },
             {
@@ -87,30 +105,47 @@ Following CLI test program output shows profile query and results in JSON format
                 "effort": "1min Best Power",
                 "power_unit": "W/kg",
                 "power_value": 8.42,
-                "range_position": 22,
-                "range_power_value": [
-                    7.71,
-                    8.63
-                ],
+                "ranking_category": {
+                    "position": 22,
+                    "range": [
+                        7.71,
+                        8.63
+                    ]
+                },
+                "ranking_gender": {
+                    "position": 52,
+                    "range": [
+                        5.64,
+                        11.5
+                    ]
+                },
                 "target": "no"
             },
             {
                 "category": "Moderate",
                 "effort": "5sec Best Power",
                 "power_unit": "W/kg",
-                "power_value": 14.64,
-                "range_position": 44,
-                "range_power_value": [
-                    13.44,
-                    15.61
-                ],
+                "power_value": 14.14,
+                "ranking_category": {
+                    "position": 67,
+                    "range": [
+                        13.44,
+                        15.61
+                    ]
+                },
+                "ranking_gender": {
+                    "position": 71,
+                    "range": [
+                        10.17,
+                        24.04
+                    ]
+                },
                 "target": "no"
             }
         ],
         "status": 0
     }
 }
-
 ```
 Proper GUI is under development. Following image shows the rider property and profile view pages:
 
