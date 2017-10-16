@@ -185,8 +185,9 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
                                                 CyclingPowerProfileChart &chart,
                                                 QueryResponse &result) {
 
-  double low = chart.categories.begin()->low;
-  double high = chart.categories.rbegin()->high;
+  // init overall wgender range to [chart[first].low, chart[last].high]
+  double gender_low = chart.categories.begin()->low;
+  double gender_high = chart.categories.rbegin()->high;
 
   for (auto &&c : chart.categories) {
     if (watts >= c.low && watts <= c.high) {
@@ -197,8 +198,10 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
       item.category_range = std::make_pair(c.low, c.high);
       item.rank_category =
           100 - (((item.watts - c.low) / (c.high - c.low)) * 100);
-      item.rank_gender = 100 - (((item.watts - low) / (high - low)) * 100);
-      item.gender_range = std::make_pair(low, high);
+      item.rank_gender =
+          100 -
+          (((item.watts - gender_low) / (gender_high - gender_low)) * 100);
+      item.gender_range = std::make_pair(gender_low, gender_high);
       item.is_goal = false;
       result.items.push_back(item);
       return c.id;
@@ -211,8 +214,9 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
 Category CyclingPowerProfiler::CalcPowerProfileGoal(
     Category cat, CyclingPowerProfileChart &chart, QueryResponse &result) {
 
-  double low = chart.categories.at(0).low;
-  double high = chart.categories.back().high;
+  // init overall gender range to [chart[first].low, chart[last].high]
+  double gender_low = chart.categories.begin()->low;
+  double gender_high = chart.categories.rbegin()->high;
 
   for (auto &&c : chart.categories) {
     if (cat == c.id) {
@@ -222,8 +226,10 @@ Category CyclingPowerProfiler::CalcPowerProfileGoal(
       item.rank_category = 100;
       item.category_name = CategoryList.at(c.id);
       item.category_range = std::make_pair(c.low, c.high);
-      item.rank_gender = 100 - (((item.watts - low) / (high - low)) * 100);
-      item.gender_range = std::make_pair(low, high);
+      item.rank_gender =
+          100 -
+          (((item.watts - gender_low) / (gender_high - gender_low)) * 100);
+      item.gender_range = std::make_pair(gender_low, gender_high);
       item.is_goal = true;
       result.items.push_back(item);
       return c.id;
