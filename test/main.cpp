@@ -22,110 +22,15 @@
 
 /* code */
 
-/*
-#include <QDebug>
-#include <QSharedPointer>
-#include <QtCore>
-
-class CyclingPowerProfilerTask : public QObject
-{
-    Q_OBJECT
-
-    // athlete properties
-    QString m_gender;
-    QString m_kg;
-    QString m_ppo60;
-    QString m_ppo5;
-    QString m_ppo1;
-    QString m_ppo5s;
-
-    // power profiler query result (JSON format)
-    QTextStream m_queryResult;
-
-    // true if client has command-line user interface
-    bool m_hasCLI;
-
-public:
-    Task(QObject *parent = 0) : QObject(parent) {}
-
-    // athlete properties: gender, weight, best power for 60m, 5m, 1m and 5s
-    Q_INVOKABLE void setAthleteGender(const QString& gender);
-    Q_INVOKABLE void setAthleteWeight(const QString& weight);
-    Q_INVOKABLE void setAthleteEffort(PowerType type, const QString& watts);
-
-    // get query result
-    Q_INVOKABLE void getQueryResult(QString& result) const;
-
-    // set user interface type
-    Q_INVOKABLE void setUI(bool hasCLI = false);
-
-signals:
-    void finished();
-
-public slots:
-    void calc()
-    {
-        // init athlete
-        Athlete me(m_gender.at(0) == "m" ? Gender::kMale : Gender::kFemale);
-        Weight w{Weight::dummy{}, m_kg.toDouble()};
-        me.set_weight(w);
-
-        // init profiler
-        std::shared_ptr<CyclingPowerProfiler> profiler =
-            std::make_shared<CyclingPowerProfiler>();
-        profiler->Init();
-
-        // build query for power profiling
-        profiler->ResetQuery();
-        profiler->InitQuery(PowerType::kFt, m_ppo60.toDouble());
-        profiler->InitQuery(PowerType::k5Min, m_ppo5.toDouble());
-        profiler->InitQuery(PowerType::k1Min, m_ppo1.toDouble());
-        profiler->InitQuery(PowerType::k5Sec, m_ppo5s.toDouble());
-
-        // run profiling on athlete 'me'
-        me.set_profiler(profiler);
-        me.DoProfiling();
-
-        // retrieve results
-        std::stringstream ss;
-        profiler->saveQuery(ss);
-        if (m_hasCLI)
-            std::cout << ss.str();
-        else
-            m_queryResult << ss.str();
-
-        emit finished();
-    }
-};
-
-#include "main.moc"
-
-int main(int argc, char *argv[])
-{
-    QCoreApplication a(argc, argv);
-    // Task parented to the application so that it
-    // will be deleted by the application.
-    QSharedPointer<Task> task(new Task(&a));
-
-    // This will cause the application to exit when
-    // the task signals finished.
-    QObject::connect(task.data(), SIGNAL(finished()), &a, SLOT(quit()));
-
-    // This will run the task from the application event loop.
-    QTimer::singleShot(0, task.data(), SLOT(calc()));
-
-    return a.exec();
-}
-*/
-
 #include <QCommandLineParser>
 #include <QCoreApplication>
 
 #include "CyclingPowerProfiler.h"
-#include "json.hpp"
+#include "CyclingPowerProfilerTask.h"
+
+// #include "main.moc"
 
 int main(int argc, char *argv[]) {
-  // init app
   QCoreApplication a(argc, argv);
   QCoreApplication::setApplicationName("PowerProfiler");
   QCoreApplication::setApplicationVersion("1.0.0");
@@ -150,37 +55,26 @@ int main(int argc, char *argv[]) {
 
   parser.process(a);
 
-  QString gender = parser.value("gender").toLower();
-  QString kg = parser.value("weight");
-  QString ppo60 = parser.value("ftp");
-  QString ppo5 = parser.value("vo2");
-  QString ppo1 = parser.value("ana");
-  QString ppo5s = parser.value("nmu");
+  // Task parented to the application so that it
+  // will be deleted by the application.
+  QSharedPointer<CyclingPowerProfilerTask> task(
+      new CyclingPowerProfilerTask(&a));
 
-  // init athlete
-  Athlete me(gender.at(0) == "m" ? Gender::kMale : Gender::kFemale);
-  Weight w{Weight::dummy{}, kg.toDouble()};
-  // Weight w = 65.6_kg;
-  me.set_weight(w);
+  // init task properties with user input values
+  task->setUI(true);
+  task->setAthleteGender(parser.value("gender").toLower());
+  task->setAthleteWeight(parser.value("weight"));
+  task->setAthleteEffort(PowerType::kFt, parser.value("ftp"));
+  task->setAthleteEffort(PowerType::k5Min, parser.value("vo2"));
+  task->setAthleteEffort(PowerType::k1Min, parser.value("ana"));
+  task->setAthleteEffort(PowerType::k5Sec, parser.value("nmu"));
 
-  // init profiler
-  std::shared_ptr<CyclingPowerProfiler> profiler =
-      std::make_shared<CyclingPowerProfiler>();
-  profiler->Init();
+  // This will cause the application to exit when
+  // the task signals finished.
+  QObject::connect(task.data(), SIGNAL(finished()), &a, SLOT(quit()));
 
-  // build query for power profiling
-  profiler->ResetQuery();
-  profiler->InitQuery(PowerType::kFt, ppo60.toDouble());
-  profiler->InitQuery(PowerType::k5Min, ppo5.toDouble());
-  profiler->InitQuery(PowerType::k1Min, ppo1.toDouble());
-  profiler->InitQuery(PowerType::k5Sec, ppo5s.toDouble());
-
-  // run profiling on athlete 'me'
-  me.set_profiler(profiler);
-  me.DoProfiling();
-
-  // print query and its results into console output
-  profiler->SaveQuery(std::cout);
+  // This will run the task from the application event loop.
+  QTimer::singleShot(0, task.data(), SLOT(calc()));
 
   return a.exec();
 }

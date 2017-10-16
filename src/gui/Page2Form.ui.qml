@@ -5,6 +5,7 @@ import QtQuick.Layouts 1.3
 Item {
     width: 480
     height: 620
+    opacity: 1
     transformOrigin: Item.Center
 
 /*
@@ -75,6 +76,10 @@ Item {
         y: 227
         width: 410
         height: 20
+        z: 0
+        opacity: 1
+        clip: false
+        indeterminate: false
         to: 6.40
         from: 1.86
         transformOrigin: Item.Center
@@ -154,7 +159,7 @@ Item {
     Pane {
         id: pane
         x: 33
-        y: 206
+        y: 243
         width: 172
         height: 275
         padding: 5
@@ -170,19 +175,19 @@ Item {
             anchors.fill: parent
             Text {
                 color: "grey"
-                text: qsTr("FTP: Good\n  4.02 W/kg\n  Rank: 23[3.47, 4.18]")
+                text: qsTr("FTP: Good\n  4.02 W/kg\n  Rank: 23/100 | [3.47, 4.18]")
             }
             Text {
                 color: "grey"
-                text: qsTr("5min: Good\n  4.75 W/kg\n  Rank: 31[4.19, 5.01]")
+                text: qsTr("5min: Good\n  4.75 W/kg\n  Rank: 31/100 | [4.19, 5.01]")
             }
             Text {
                 color: "grey"
-                text: qsTr("1min: Good\n  8.42 W/kg\n  Rank: 22[7.71, 8.63]")
+                text: qsTr("1min: Good\n  8.42 W/kg\n  Rank: 22/100 | [7.71, 8.63]")
             }
             Text {
                 color: "grey"
-                text: qsTr("5sec: Moderate\n  14.64 W/kg\n  Rank: 44[13.44, 15.61]")
+                text: qsTr("5sec: Moderate\n  14.64 W/kg\n  Rank: 44/100 | [13.44, 15.61]")
             }
         }
     }
@@ -192,23 +197,75 @@ Item {
         x: 33
         y: 32
         width: 172
-        height: 143
+        height: 184
         padding: 5
         enabled: true
-        title: qsTr("Power Scope View:")
+        title: qsTr("Ranking View:")
 
         Column {
-            spacing: 5
+            spacing: 2
 
             RadioButton {
                 id: radioButton1
                 text: qsTr("Category")
+                enabled: true
+                autoExclusive: true
+                spacing: 2
+                checkable: true
+                checked: false
             }
 
             RadioButton {
                 id: radioButton2
-                text: qsTr("Global")
+                text: qsTr("Gender")
+                enabled: true
+                autoExclusive: true
+                scale: 1
+                spacing: 2
+                checkable: true
+                checked: true
+            }
+
+            RadioButton {
+                id: radioButton3
+                text: qsTr("Overall")
+                enabled: true
+                autoExclusive: true
+                scale: 1
+                spacing: 2
+                checkable: true
+                checked: false
             }
         }
+    }
+
+    Button {
+        id: button
+        x: 340
+        y: 504
+        width: 74
+        height: 33
+        text: qsTr("Share >")
+        opacity: 0.5
+    }
+
+    Button {
+        id: button1
+        x: 226
+        y: 503
+        width: 73
+        height: 34
+        text: qsTr("Save")
+        visible: false
+    }
+
+    Button {
+        id: button2
+        x: 141
+        y: 502
+        width: 73
+        height: 35
+        text: qsTr("Trend")
+        visible: false
     }
 }

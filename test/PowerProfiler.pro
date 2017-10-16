@@ -21,6 +21,7 @@ HEADERS += \
     ../src/CyclingPowerProfileChart.h \
     ../src/CyclingPowerProfiler.h \
     ../src/CyclingPowerProfilerQuery.h \
+    ../src/CyclingPowerProfilerTask.h \
     ../include/json.hpp
 
 # The following define makes your compiler emit warnings if you use
