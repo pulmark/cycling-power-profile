@@ -17,8 +17,12 @@ Following image shows the power profile chart utilized in profile calculations:
 The following rider properties are needed for power profile calculation:
 * gender
 * weight
-* best effort power in watts for following durations: 5 s, 1 min, 5 min and 60 min (FTP).
-
+* best effort power in watts for following durations: 
+  * 5 sec (neuromuscular capacity)
+  * 1 min (anaerobic capacity)
+  * 5 min (maximal aerobic capacity, VO2 max)  
+  * 60 min (general aerobic capacity)
+  
 Following CLI test program output shows profile query and results in JSON format:
 
 >./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 905
