@@ -23,9 +23,15 @@ The following rider properties are needed for power profile calculation:
   * 5 min (maximal aerobic capacity, VO2 max),  
   * 60 min (functional threshold power, FTP)
   
+The calculation results shows the following parameters for each effort:
+  * category (Untrained, Fair, Moderate, Good, Very Good, Excellent, Exceptional, World Class),
+  * power as watts per kg,
+  * position within category (1-100),
+  * overall position by gender (1-100)
+  
 Following CLI test program output shows profile query and results in JSON format:
 
->./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 905
+> **./PowerProfiler -gender male -weight 64 -ftp 257 -vo2 304 -ana 539 -nmu 905**
 ```
 {
     "date_time": "16-10-2017 13-25-54",
