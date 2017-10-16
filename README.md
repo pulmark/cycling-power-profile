@@ -1,7 +1,7 @@
 # Power Profiler for Cycling
 
-## Abstract
-Multi platform (Linux, Windows, macOS, Android etc.) app to determine power profile for road cyclists that use power meter when riding, training or racing. The app uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
+## Introduction
+Multi platform (Linux, Windows, macOS, Android, iPhone etc.) application to determine power profile for road cyclists who use power meter when riding, training or racing. The app uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
 
 Depends on Qt cross-platform application development toolkit.
 
@@ -23,6 +23,8 @@ The following rider properties are needed for power profile calculation:
   * 5 min (maximal aerobic capacity, VO2 max),  
   * 60 min (functional threshold power, FTP)
   
+Currently rider properties are given manually via application GUI. In the future it could be possible to import rider properties directly from Strava or some other training log book web service providing API for these parameters.
+
 The calculation results shows the following parameters for each effort:
   * category (Untrained, Fair, Moderate, Good, Very Good, Excellent, Exceptional, World Class),
   * power as watts per kg,
