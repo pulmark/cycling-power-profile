@@ -1,15 +1,23 @@
 # Power Profiler for Cycling
 
+## Abstract
 Multi platform (Linux, Windows, macOS, Android etc.) app to determine power profile for road cyclists that use power meter when riding, training or racing. The app uses cycling power profile chart developed by Hunter Allan & Dr. Andrew Coggan for comparison and classification.    
 
 Depends on Qt cross-platform application development toolkit.
 
+## Power Profiling Chart
 Following image shows the power profile chart utilized in profile calculations:
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31544246-846eff42-b022-11e7-826b-8b9e1a825474.gif" width="720"/>
 </p>
 
+
+## Power Profiling API V1
+The following rider properties are needed for power profile calculation:
+* gender
+* weight
+* best effort power in watts for following durations: 5 s, 1 min, 5 min and 60 min (FTP).
 
 Following CLI test program output shows profile query and results in JSON format:
 
@@ -147,7 +155,9 @@ Following CLI test program output shows profile query and results in JSON format
     }
 }
 ```
-Proper GUI is under development. Following image shows the rider property and profile view pages:
+
+## User Interface
+GUI is under development. Following image shows the rider property and profile view pages:
 
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31576907-91cc72c8-b10d-11e7-94b1-a64a6427809a.jpg" />
