@@ -185,6 +185,9 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
                                                 CyclingPowerProfileChart &chart,
                                                 QueryResponse &result) {
 
+  double low = chart.categories.begin()->low;
+  double high = chart.categories.rbegin()->high;
+
   for (auto &&c : chart.categories) {
     if (watts >= c.low && watts <= c.high) {
       QueryResponseItem item;
@@ -192,7 +195,10 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
       item.watts = watts;
       item.category_name = CategoryList.at(c.id);
       item.category_range = std::make_pair(c.low, c.high);
-      item.procents = 100 - (((watts - c.low) / (c.high - c.low)) * 100);
+      item.rank_category =
+          100 - (((item.watts - c.low) / (c.high - c.low)) * 100);
+      item.rank_gender = 100 - (((item.watts - low) / (high - low)) * 100);
+      item.gender_range = std::make_pair(low, high);
       item.is_goal = false;
       result.items.push_back(item);
       return c.id;
@@ -205,14 +211,19 @@ Category CyclingPowerProfiler::CalcPowerProfile(double watts,
 Category CyclingPowerProfiler::CalcPowerProfileGoal(
     Category cat, CyclingPowerProfileChart &chart, QueryResponse &result) {
 
+  double low = chart.categories.at(0).low;
+  double high = chart.categories.back().high;
+
   for (auto &&c : chart.categories) {
     if (cat == c.id) {
       QueryResponseItem item;
       item.type = chart.type;
       item.watts = c.low;
-      item.procents = 100;
+      item.rank_category = 100;
       item.category_name = CategoryList.at(c.id);
       item.category_range = std::make_pair(c.low, c.high);
+      item.rank_gender = 100 - (((item.watts - low) / (high - low)) * 100);
+      item.gender_range = std::make_pair(low, high);
       item.is_goal = true;
       result.items.push_back(item);
       return c.id;
@@ -268,14 +279,16 @@ bool CyclingPowerProfiler::SaveQueryJson(std::ostream &s) {
   items.clear();
   for (auto &&k : query_.response.items) {
     json item;
+    item["category"] = k.category_name;
     item["effort"] = PowerTypeList.at(k.type);
     item["power_unit"] = "W/kg";
     std::stringstream tmp;
     tmp << std::setprecision(2) << std::fixed << k.watts;
     item["power_value"] = stod(tmp.str());
-    item["range_position"] = static_cast<int>(k.procents);
-    item["category"] = k.category_name;
-    item["range_power_value"] = k.category_range;
+    item["ranking_category"]["position"] = static_cast<int>(k.rank_category);
+    item["ranking_category"]["range"] = k.category_range;
+    item["ranking_gender"]["position"] = static_cast<int>(k.rank_gender);
+    item["ranking_gender"]["range"] = k.gender_range;
     item["target"] = (k.is_goal ? "yes" : "no");
     items.push_back(item);
   }

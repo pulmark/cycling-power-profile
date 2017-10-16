@@ -130,11 +130,13 @@ struct QueryRequest {
 };
 
 struct QueryResponseItem {
+  std::string category_name{};
   PowerType type{};
   double watts{};
-  double procents{};
-  std::string category_name{};
+  double rank_category{};
   std::pair<double, double> category_range;
+  double rank_gender{};
+  std::pair<double, double> gender_range;
   bool is_goal{};
 };
 
