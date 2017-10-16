@@ -69,7 +69,7 @@ bool CyclingPowerProfiler::Run(const Athlete &athlete) {
   auto t = std::time(nullptr);
   auto tm = *std::localtime(&t);
   std::ostringstream oss;
-  oss << std::put_time(&tm, "%d-%m-%Y %H-%M-%S");
+  oss << std::put_time(&tm, "%d-%m-%YT%H-%M-%S%z");
   query_.date = oss.str();
   query_.name = "cycling power profile";
   query_.request.unit = PowerUnit::kWatt;
