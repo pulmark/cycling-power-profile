@@ -31,8 +31,6 @@
 
 #include "CyclingPowerProfiler.h"
 
-enum class UiType { kUndefined = 0, kTerminal, kGraphical, kTouchScreen };
-
 class CyclingPowerProfilerTask : public QObject {
   Q_OBJECT
 
@@ -40,13 +38,15 @@ public:
   CyclingPowerProfilerTask(QObject *parent = 0)
       : QObject{parent}, m_gender{"male"}, m_weight{"64.0"}, m_ppo60{"257.0"},
         m_ppo5{"304"}, m_ppo1{"539"}, m_ppo5s{"937"}, m_queryResult{},
-        m_ui{UiType::kTerminal} {}
+        m_ui{UiType::Graphical} {}
 
   virtual ~CyclingPowerProfilerTask() {}
 
   // enums for power types and user interface
-  Q_ENUM(PowerType)
+  enum UiType { Terminal = 1, Graphical, TouchScreen };
+  enum EffortType { Ftp = 1, Vo2Max, Anaerobic, NeuroMuscular };
   Q_ENUM(UiType)
+  Q_ENUM(EffortType)
 
   // athlete properties: gender, weight, best power for 60m, 5m, 1m and 5s
   Q_INVOKABLE void setAthleteGender(const QString &gender) {
@@ -55,20 +55,20 @@ public:
   Q_INVOKABLE void setAthleteWeight(const QString &weight) {
     m_weight = weight;
   }
-  Q_INVOKABLE void setAthleteEffort(PowerType type, const QString &watts) {
-    switch (type) {
+  Q_INVOKABLE void setAthleteEffort(EffortType effort, const QString &watts) {
+    switch (effort) {
     default:
       break;
-    case PowerType::kFt:
+    case EffortType::Ftp:
       m_ppo60 = watts;
       break;
-    case PowerType::k5Min:
+    case EffortType::Vo2Max:
       m_ppo5 = watts;
       break;
-    case PowerType::k1Min:
+    case EffortType::Anaerobic:
       m_ppo1 = watts;
       break;
-    case PowerType::k5Sec:
+    case EffortType::NeuroMuscular:
       m_ppo5s = watts;
       break;
     }
@@ -121,7 +121,7 @@ public slots:
     std::ostringstream ss;
     profiler->SaveQuery(ss);
     m_queryResult = ss.str().c_str();
-    if (m_ui == UiType::kTerminal) {
+    if (m_ui == UiType::Terminal) {
       QTextStream cout(stdout);
       cout << m_queryResult;
       cout.flush();
@@ -148,5 +148,8 @@ private:
   // user interface type
   UiType m_ui;
 };
+
+Q_DECLARE_METATYPE(CyclingPowerProfilerTask::EffortType)
+Q_DECLARE_METATYPE(CyclingPowerProfilerTask::UiType)
 
 #endif // CYCLINGPOWERPROFILERTASK_H
