@@ -1,4 +1,3 @@
-
 /*
 ** Copyright (c) 2017 Markku Pulkkinen. All rights reserved.
 ** Contact: markku.j.pulkkinen@gmail.com
@@ -29,6 +28,7 @@ Item {
     property alias min1: textField3
     property alias sec5: textField4
     property alias weight: textField5
+    property alias gender: switch1
 
     property alias calc: button1
     property alias clear: button2

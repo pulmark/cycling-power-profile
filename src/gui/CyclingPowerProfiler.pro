@@ -1,26 +1,32 @@
-# Copyright (c) 2017 Markku Pulkkinen. All rights reserved.
+# CyclingPowerProfiler distribution, Copyright (c) 2017 Markku Pulkkinen.
 # Contact: markku.j.pulkkinen@gmail.com
 #
-# This file is part of CyclingPowerProfiler software distribution.
-#
-# This software is free software: you can redistribute it and/or modify
+# This program is free software: you can redistribute it and/or modify
 # it under the terms of the GNU Lesser General Public License as published by
 # the Free Software Foundation, either version 3 of the License, or
 # (at your option) any later version.
-#
-# This software is distributed in the hope that it will be useful,
+
+# This program is distributed in the hope that it will be useful,
 # but WITHOUT ANY WARRANTY; without even the implied warranty of
 # MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 # GNU Lesser General Public License for more details.
-#
+
 # You should have received a copy of the GNU Lesser General Public License
-# along with this software.  If not, see <http://www.gnu.org/licenses/>.
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
 
 QT += qml quick
 
 CONFIG += c++11 c++14 c++17
 
-SOURCES += main.cpp
+INCLUDEPATH += ../
+INCLUDEPATH += ../../include
+
+SOURCES += main.cpp \
+    ../CyclingPowerProfiler.cc
+
+HEADERS += \
+    ../CyclingPowerProfilerTask.h \
+    ../../include/json.hpp
 
 RESOURCES += qml.qrc
 
