@@ -176,5 +176,5 @@ GUI is under development. Following image shows first prototypes of rider proper
 </p>
 
 ## License
-Copyright &#169; Markku Pulkkinen. Released under the [GNU Lesser Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.md).  
+Copyright &#169; Markku Pulkkinen. Released under the [GNU Lesser General Public License v3.0](https://www.gnu.org/licenses/lgpl-3.0.md).  
 
