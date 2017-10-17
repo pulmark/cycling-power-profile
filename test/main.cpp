@@ -58,15 +58,17 @@ int main(int argc, char *argv[]) {
   QSharedPointer<CyclingPowerProfilerTask> task(
       new CyclingPowerProfilerTask(&a));
 
-  task->setUI(UiType::kTerminal);
+  task->setUI(CyclingPowerProfilerTask::Terminal);
 
   // init task properties with user input values
   task->setAthleteGender(parser.value("gender").toLower());
   task->setAthleteWeight(parser.value("weight"));
-  task->setAthleteEffort(PowerType::kFt, parser.value("ftp"));
-  task->setAthleteEffort(PowerType::k5Min, parser.value("vo2"));
-  task->setAthleteEffort(PowerType::k1Min, parser.value("ana"));
-  task->setAthleteEffort(PowerType::k5Sec, parser.value("nmu"));
+  task->setAthleteEffort(CyclingPowerProfilerTask::Ftp, parser.value("ftp"));
+  task->setAthleteEffort(CyclingPowerProfilerTask::Vo2Max, parser.value("vo2"));
+  task->setAthleteEffort(CyclingPowerProfilerTask::Anaerobic,
+                         parser.value("ana"));
+  task->setAthleteEffort(CyclingPowerProfilerTask::NeuroMuscular,
+                         parser.value("nmu"));
 
   // This will cause the application to exit when the task signals finished.
   QObject::connect(task.data(), SIGNAL(calcCompleted()), &a, SLOT(quit()));
