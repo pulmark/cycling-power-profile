@@ -174,3 +174,7 @@ GUI is under development. Following image shows first prototypes of rider proper
 <p align="left">
   <img src="https://user-images.githubusercontent.com/22800635/31622359-e3045294-b2a4-11e7-9bd3-bf05aee81ab8.jpg" />
 </p>
+
+## License
+Copyright &#169; Markku Pulkkinen. Released under the [GNU Lesser Public License v3.0](LICENSE.lgpl-v3.0.md).  
+
