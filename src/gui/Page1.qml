@@ -24,11 +24,11 @@ Page1Form {
         console.log("Calculate Button Pressed");
 
         // sanity checks for power and weigth values
-        var valFtp = parseInt(ftp.text.valueOf(), 10);
-        var valVo2 = parseInt(min5.text.valueOf(), 10);
-        var valAna = parseInt(min1.text.valueOf(), 10);
-        var valNmu = parseInt(sec5.text.valueOf(), 10);
-        var valKg = parseInt(weight.text.valueOf(), 10);
+        var valFtp = ftp.text.length == 0 ? 0 : parseInt(ftp.text.valueOf(), 10);
+        var valVo2 = min5.text.length == 0 ? 0 : parseInt(min5.text.valueOf(), 10);
+        var valAna = min1.text.length == 0 ? 0 : parseInt(min1.text.valueOf(), 10);
+        var valNmu = sec5.text.length == 0 ? 0 : parseInt(sec5.text.valueOf(), 10);
+        var valKg = weight.text.length == 0 ? 0 : parseInt(weight.text.valueOf(), 10);
         if (valFtp < 1 || valFtp > 2000) return;
         if (valVo2 < 1 || valVo2 > 2000) return;
         if (valAna < 1 || valAna > 2000) return;
